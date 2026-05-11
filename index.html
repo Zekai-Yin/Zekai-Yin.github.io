@@ -140,11 +140,11 @@
       </div>
     </section>
 
-    <!-- Publications: under-review items remain clearly labeled. -->
+    <!-- Publications: accepted papers only. -->
     <section class="section-band publication-band" id="publications">
       <div class="section-heading page-grid reveal">
         <p class="eyebrow">Publications</p>
-        <h2>Accepted papers and under-review work.</h2>
+        <h2>Accepted papers.</h2>
         <p class="section-note">* indicates equal contribution.</p>
       </div>
 
@@ -185,21 +185,6 @@
           </div>
         </article>
 
-        <article class="publication-card under-review reveal">
-          <div class="venue-badge muted">Under Review</div>
-          <div>
-            <h3>DOGMA: A Wearable Multimodal Dog-Human Behavior Dataset in the Wild</h3>
-            <p>Tianyou Luo, Adwait Kulkarni, Hee Jae Kim, <strong>Zekai Yin</strong>, Maolin Wei, Rohit Mandapati, Reza Sajjadinasab, Eshed Ohn-Bar</p>
-          </div>
-        </article>
-
-        <article class="publication-card under-review reveal">
-          <div class="venue-badge muted">Under Review</div>
-          <div>
-            <h3>GuidedWays: A Naturalistic Navigation Dataset of Blind People and Their Guide Dogs</h3>
-            <p>Hee Jae Kim, Maolin Wei, Tianyou Luo, Reza Sajjadinasab, <strong>Zekai Yin</strong>, Hernisa Kacorri, Eshed Ohn-Bar</p>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -215,7 +200,7 @@
           <button class="project-tab is-active" type="button" role="tab" aria-selected="true" data-project-tab="0">ZeroVO (Visual Odometry)</button>
           <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="1">SGTAPose (Robot Pose Estimation)</button>
           <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="2">BranchOut (Diffusion Trajectory Planning)</button>
-          <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="3">3DGS (Simulation and Visualization)</button>
+          <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="3">3DGS-VR (Data Collection Pipeline)</button>
           <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="4">Guide-Dog (Assistive AI)</button>
         </div>
 
@@ -294,20 +279,27 @@
 
           <article class="project-slide" data-project-slide="3" aria-hidden="true">
             <div class="project-media" tabindex="0" data-hover-media>
-              <img src="assets/branchout/framework.png" alt="3D reconstruction and VR driving simulation workflow" loading="lazy">
-              <video class="project-video" muted loop playsinline preload="none" aria-label="3D reconstruction simulation preview">
-                <source src="assets/videos/3dgs-closedloop.mp4" type="video/mp4">
+              <img src="assets/branchout/framework.png" alt="3DGS-VR integrated data collection pipeline" loading="lazy">
+              <video class="project-video" muted loop playsinline preload="none" aria-label="3DGS-VR integrated data collection preview">
+                <source src="assets/videos/3dgs-vr-pipeline.mp4" type="video/mp4">
               </video>
               <span class="media-hint">Hover to play</span>
             </div>
             <div class="project-content">
               <p class="project-label">H2X Lab</p>
-              <h3>3DGS (Simulation and Visualization)</h3>
+              <h3>3DGS-VR Integrated Data Collection Pipeline</h3>
               <p>
-                VR-integrated driving simulation using 3D Gaussian Splatting and
-                NeRF-based scene reconstruction, collecting 20,000+ feasible
-                trajectories for planning benchmarks.
+                A human-in-the-loop data collection pipeline that reconstructs
+                real driving scenes with 3D Gaussian Splatting and NeRF, then
+                integrates VR steering and throttle control to collect diverse,
+                feasible trajectories for planning benchmarks.
               </p>
+              <div class="pipeline-steps" aria-label="Data collection pipeline">
+                <span>3D reconstruction</span>
+                <span>VR driving simulation</span>
+                <span>trajectory collection</span>
+                <span>multimodal evaluation</span>
+              </div>
             </div>
           </article>
 

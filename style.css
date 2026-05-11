@@ -631,6 +631,23 @@ h3 {
   font-size: clamp(1.45rem, 2.6vw, 2.45rem);
 }
 
+.pipeline-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.pipeline-steps span {
+  border: 1px solid rgba(11, 116, 106, 0.18);
+  border-radius: var(--radius);
+  background: rgba(220, 239, 235, 0.72);
+  color: var(--teal-dark);
+  font-size: 0.78rem;
+  font-weight: 850;
+  padding: 0.4rem 0.55rem;
+}
+
 .project-media-abstract {
   background:
     radial-gradient(circle at 18% 20%, rgba(36, 89, 196, 0.14), transparent 26%),
@@ -827,10 +844,6 @@ h3 {
 .venue-badge.muted {
   background: var(--soft-coral);
   color: #8b3c2e;
-}
-
-.under-review {
-  background: rgba(255, 255, 255, 0.62);
 }
 
 .timeline {
