@@ -585,9 +585,9 @@ h3 {
 .project-media:hover img,
 .project-media:focus img,
 .project-media.is-playing img,
-.project-media:hover .mocap-scene,
-.project-media:focus .mocap-scene,
-.project-media.is-playing .mocap-scene {
+.project-media:hover .guide-scene,
+.project-media:focus .guide-scene,
+.project-media.is-playing .guide-scene {
   opacity: 0;
 }
 
@@ -658,94 +658,118 @@ h3 {
   background-size: auto, auto, 36px 36px, 36px 36px;
 }
 
-.mocap-scene {
-  position: relative;
-  width: min(92%, 560px);
-  aspect-ratio: 1.55 / 1;
+.guide-scene {
+  width: min(94%, 660px);
+  height: auto;
   transition: opacity 180ms ease;
 }
 
-.mocap-node,
-.mocap-path,
-.mocap-label {
-  position: absolute;
+.guide-person,
+.guide-dog-shape {
+  fill: var(--graphite);
+  stroke: var(--graphite);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 12;
 }
 
-.mocap-node {
-  width: 18px;
-  height: 18px;
-  border: 3px solid white;
-  border-radius: 50%;
-  background: var(--teal);
-  box-shadow: 0 0 0 8px rgba(11, 116, 106, 0.16);
-  animation: pulseNode 2.2s ease-in-out infinite;
+.guide-person {
+  animation: guideWalk 2.8s ease-in-out infinite;
+  transform-origin: 260px 318px;
 }
 
-.node-a {
-  left: 14%;
-  top: 18%;
+.guide-dog-shape {
+  animation: dogTrot 2.8s ease-in-out infinite;
+  transform-origin: 486px 300px;
 }
 
-.node-b {
-  left: 38%;
-  top: 62%;
-  background: var(--blue);
-  animation-delay: 0.25s;
+.guide-arm,
+.guide-leg,
+.guide-cane,
+.dog-tail,
+.dog-leg,
+.guide-leash,
+.guide-ground,
+.guide-pulse {
+  fill: none;
 }
 
-.node-c {
-  right: 27%;
-  top: 28%;
-  background: var(--coral);
-  animation-delay: 0.5s;
+.guide-body,
+.guide-arm,
+.guide-leg,
+.guide-cane,
+.dog-leg,
+.dog-tail,
+.guide-leash,
+.guide-ground,
+.guide-pulse {
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.node-d {
-  right: 11%;
-  bottom: 19%;
-  background: var(--gold);
-  animation-delay: 0.75s;
+.guide-body,
+.guide-arm,
+.guide-leg,
+.guide-cane,
+.dog-leg,
+.dog-tail,
+.guide-leash {
+  stroke: var(--graphite);
 }
 
-.mocap-path {
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--teal), var(--blue), var(--coral));
-  transform-origin: left;
+.guide-leash {
+  stroke-width: 6;
+  stroke-dasharray: 8 10;
+  animation: leashFlow 2.8s linear infinite;
 }
 
-.path-a {
-  left: 17%;
-  top: 31%;
-  width: 56%;
-  transform: rotate(22deg);
+.guide-ground {
+  stroke: rgba(11, 116, 106, 0.34);
+  stroke-width: 5;
+  stroke-dasharray: 14 18;
+  animation: pathFlow 6s linear infinite;
 }
 
-.path-b {
-  left: 42%;
-  top: 67%;
-  width: 45%;
-  transform: rotate(-26deg);
+.guide-pulse {
+  stroke: rgba(36, 89, 196, 0.28);
+  stroke-width: 4;
+  stroke-dasharray: 8 16;
+  animation: pathFlow 7s linear infinite;
 }
 
-.mocap-label {
-  border: 1px solid rgba(23, 28, 32, 0.12);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.82);
-  color: var(--graphite);
-  font-size: 0.82rem;
-  font-weight: 900;
-  padding: 0.45rem 0.6rem;
+.pulse-two {
+  animation-delay: -2s;
 }
 
-.label-a {
-  left: 9%;
-  bottom: 14%;
+.arm-front,
+.leg-back,
+.leg-one,
+.leg-three {
+  animation: stepForward 1.4s ease-in-out infinite alternate;
 }
 
-.label-b {
-  right: 8%;
-  top: 12%;
+.arm-back,
+.leg-front,
+.leg-two {
+  animation: stepBack 1.4s ease-in-out infinite alternate;
+}
+
+.dog-tail {
+  stroke-width: 10;
+  animation: tailWag 0.9s ease-in-out infinite alternate;
+  transform-origin: 404px 264px;
+}
+
+.dog-body,
+.dog-head,
+.dog-ear {
+  stroke-width: 0;
+}
+
+.dog-harness {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 7;
 }
 
 @keyframes projectDrift {
@@ -780,14 +804,67 @@ h3 {
   }
 }
 
-@keyframes pulseNode {
+@keyframes guideWalk {
   0%,
   100% {
-    transform: scale(1);
+    transform: translateY(0) rotate(-1deg);
   }
 
   50% {
-    transform: scale(1.18);
+    transform: translateY(-5px) rotate(1deg);
+  }
+}
+
+@keyframes dogTrot {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes stepForward {
+  from {
+    transform: rotate(-3deg);
+  }
+
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes stepBack {
+  from {
+    transform: rotate(5deg);
+  }
+
+  to {
+    transform: rotate(-4deg);
+  }
+}
+
+@keyframes tailWag {
+  from {
+    transform: rotate(-8deg);
+  }
+
+  to {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes leashFlow {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+
+@keyframes pathFlow {
+  to {
+    stroke-dashoffset: -64;
   }
 }
 
