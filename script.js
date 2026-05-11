@@ -29,6 +29,10 @@ if (navToggle && navLinks) {
 const revealItems = document.querySelectorAll(".reveal");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+revealItems.forEach((item, index) => {
+  item.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
+});
+
 if (reduceMotion || !("IntersectionObserver" in window)) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 } else {
@@ -45,6 +49,59 @@ if (reduceMotion || !("IntersectionObserver" in window)) {
   );
 
   revealItems.forEach((item) => revealObserver.observe(item));
+}
+
+const projectSwitcher = document.querySelector("[data-project-switcher]");
+
+if (projectSwitcher) {
+  const tabs = Array.from(projectSwitcher.querySelectorAll("[data-project-tab]"));
+  const slides = Array.from(projectSwitcher.querySelectorAll("[data-project-slide]"));
+  let activeProject = 0;
+  let projectTimer;
+
+  const setProject = (index) => {
+    activeProject = (index + slides.length) % slides.length;
+
+    tabs.forEach((tab, tabIndex) => {
+      const isActive = tabIndex === activeProject;
+      tab.classList.toggle("is-active", isActive);
+      tab.setAttribute("aria-selected", String(isActive));
+    });
+
+    slides.forEach((slide, slideIndex) => {
+      const isActive = slideIndex === activeProject;
+      slide.classList.toggle("is-active", isActive);
+      slide.setAttribute("aria-hidden", String(!isActive));
+    });
+  };
+
+  const startProjectTimer = () => {
+    window.clearInterval(projectTimer);
+    if (reduceMotion || slides.length < 2) return;
+    projectTimer = window.setInterval(() => {
+      setProject(activeProject + 1);
+    }, 5200);
+  };
+
+  const resetProjectTimer = () => {
+    window.clearInterval(projectTimer);
+    startProjectTimer();
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      setProject(Number(tab.dataset.projectTab));
+      resetProjectTimer();
+    });
+  });
+
+  projectSwitcher.addEventListener("mouseenter", () => window.clearInterval(projectTimer));
+  projectSwitcher.addEventListener("mouseleave", startProjectTimer);
+  projectSwitcher.addEventListener("focusin", () => window.clearInterval(projectTimer));
+  projectSwitcher.addEventListener("focusout", startProjectTimer);
+
+  setProject(0);
+  startProjectTimer();
 }
 
 const sections = Array.from(document.querySelectorAll("main section[id]"));
