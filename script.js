@@ -56,10 +56,43 @@ const projectSwitcher = document.querySelector("[data-project-switcher]");
 if (projectSwitcher) {
   const tabs = Array.from(projectSwitcher.querySelectorAll("[data-project-tab]"));
   const slides = Array.from(projectSwitcher.querySelectorAll("[data-project-slide]"));
+  const mediaItems = Array.from(projectSwitcher.querySelectorAll("[data-hover-media]"));
   let activeProject = 0;
   let projectTimer;
 
+  const stopMedia = (media) => {
+    media.classList.remove("is-playing");
+
+    const video = media.querySelector("video");
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+
+    const embed = media.querySelector("iframe");
+    if (embed) {
+      embed.removeAttribute("src");
+    }
+  };
+
+  const startMedia = (media) => {
+    media.classList.add("is-playing");
+
+    const video = media.querySelector("video");
+    if (video) {
+      video.play().catch(() => {
+        media.classList.remove("is-playing");
+      });
+    }
+
+    const embed = media.querySelector("iframe");
+    if (embed && !embed.getAttribute("src")) {
+      embed.setAttribute("src", embed.dataset.videoSrc);
+    }
+  };
+
   const setProject = (index) => {
+    mediaItems.forEach(stopMedia);
     activeProject = (index + slides.length) % slides.length;
 
     tabs.forEach((tab, tabIndex) => {
@@ -93,6 +126,13 @@ if (projectSwitcher) {
       setProject(Number(tab.dataset.projectTab));
       resetProjectTimer();
     });
+  });
+
+  mediaItems.forEach((media) => {
+    media.addEventListener("mouseenter", () => startMedia(media));
+    media.addEventListener("mouseleave", () => stopMedia(media));
+    media.addEventListener("focusin", () => startMedia(media));
+    media.addEventListener("focusout", () => stopMedia(media));
   });
 
   projectSwitcher.addEventListener("mouseenter", () => window.clearInterval(projectTimer));

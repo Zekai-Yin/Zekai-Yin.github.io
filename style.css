@@ -218,8 +218,6 @@ textarea {
   border-radius: var(--radius);
   background: var(--bg-strong);
   box-shadow: var(--shadow);
-  animation: portraitFloat 7s ease-in-out infinite;
-  will-change: transform;
 }
 
 .hero-portrait::before {
@@ -233,27 +231,11 @@ textarea {
   pointer-events: none;
 }
 
-.hero-portrait::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.25), transparent 65%);
-  pointer-events: none;
-  transform: translateX(-120%);
-  animation: portraitShine 8s ease-in-out infinite;
-}
-
 .hero-portrait img {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: center 28%;
-  transition: transform 700ms ease;
-}
-
-.hero-portrait:hover img {
-  transform: scale(1.035);
 }
 
 .hero-portrait figcaption {
@@ -491,13 +473,15 @@ h3 {
 
 .project-tab {
   position: relative;
-  min-height: 3.2rem;
+  min-height: 4rem;
   border: 0;
   border-right: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
   cursor: pointer;
+  font-size: 0.86rem;
   font-weight: 850;
+  line-height: 1.2;
   padding: 0.75rem 0.7rem;
   transition: background 160ms ease, color 160ms ease;
   overflow: hidden;
@@ -577,10 +561,66 @@ h3 {
   max-height: 410px;
   object-fit: contain;
   padding: 1rem;
+  transition: opacity 180ms ease, transform 420ms ease;
 }
 
 .project-slide.is-active .project-media img {
   animation: projectDrift 5.5s ease-in-out infinite alternate;
+}
+
+.project-video,
+.project-embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.project-media:hover img,
+.project-media:focus img,
+.project-media.is-playing img,
+.project-media:hover .mocap-scene,
+.project-media:focus .mocap-scene,
+.project-media.is-playing .mocap-scene {
+  opacity: 0;
+}
+
+.project-media:hover .project-video,
+.project-media:focus .project-video,
+.project-media.is-playing .project-video,
+.project-media:hover .project-embed,
+.project-media:focus .project-embed,
+.project-media.is-playing .project-embed {
+  opacity: 1;
+}
+
+.media-hint {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 4;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: var(--radius);
+  background: rgba(23, 28, 32, 0.78);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0.4rem 0.55rem;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.project-media.is-playing .media-hint,
+.project-media:hover .media-hint,
+.project-media:focus .media-hint {
+  opacity: 0;
+  transform: translateY(4px);
 }
 
 .project-content {
@@ -605,6 +645,7 @@ h3 {
   position: relative;
   width: min(92%, 560px);
   aspect-ratio: 1.55 / 1;
+  transition: opacity 180ms ease;
 }
 
 .mocap-node,
@@ -709,29 +750,6 @@ h3 {
   to {
     filter: saturate(1.08) brightness(1.03);
     transform: translate3d(14px, 10px, 0) scale(1.04);
-  }
-}
-
-@keyframes portraitFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes portraitShine {
-  0%,
-  48% {
-    transform: translateX(-120%);
-  }
-
-  66%,
-  100% {
-    transform: translateX(120%);
   }
 }
 
